@@ -4,6 +4,7 @@ import hoangquochthai.chatapp.dto.requestDTO.GroupChatRequestDTO;
 import hoangquochthai.chatapp.dto.responseDTO.GroupChatResponseDTO;
 import hoangquochthai.chatapp.entity.GroupChat;
 import hoangquochthai.chatapp.entity.GroupUser;
+import hoangquochthai.chatapp.entity.Message;
 import hoangquochthai.chatapp.entity.User;
 import hoangquochthai.chatapp.repository.GroupChatRepository;
 import hoangquochthai.chatapp.repository.GroupUserRepository;
@@ -46,5 +47,9 @@ public class GroupService {
         }
 
         return groupChat;
+    }
+
+    public List<Message> loadMessageOfGroup(GroupChat groupChat){
+        return messageRepository.findAllByGroupChat(groupChat);
     }
 }
