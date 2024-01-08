@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,13 @@ public class UserController {
 
     @GetMapping("/")
     public List<User> getAll(){
-        return userService.getAll();
+
+        List<User> users = new ArrayList<>();
+        for (User user : userService.getAll()) {
+            user.setUserAvatar("https://picsum.photos/200");
+            users.add(user);
+        }
+        return users;
     }
 
     @PostMapping("/register")
@@ -27,8 +34,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
-        return userService.login(username, password, request);
+    public User login(@RequestBody UserRequestDTO userRequestDTO, HttpServletRequest request) {
+        return userService.login(userRequestDTO.getUsername(), userRequestDTO.getPassword(), request);
     }
 
     @GetMapping("/friends")
