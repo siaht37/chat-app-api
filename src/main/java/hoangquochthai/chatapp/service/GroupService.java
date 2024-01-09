@@ -29,9 +29,9 @@ public class GroupService {
     @Autowired
     MessageRepository messageRepository;
 
+
     public List<GroupChat> getAllGroupOfUser(String username){
-        Optional<User> user = userRepository.findById(username);
-        return groupChatRepository.findAllByCreator(user.get());
+        return groupUserRepository.findAllByUser(username);
     }
     public GroupChat createGroup(GroupChatRequestDTO groupChatRequestDTO) {
         Optional<User> user = userRepository.findById(groupChatRequestDTO.getUsername());
