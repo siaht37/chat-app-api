@@ -16,9 +16,9 @@ public class GroupController {
     @Autowired
     GroupService groupService;
 
-    @GetMapping("/")
-    public List<GroupChat> getAllGroupOfUser(@RequestBody User user){
-        return groupService.getAllGroupOfUser(user);
+    @PostMapping("/")
+    public List<GroupChat> getAllGroupOfUser(@RequestParam(name = "username") String username){
+        return groupService.getAllGroupOfUser(username);
     }
 
     @PostMapping("/create-group")
@@ -27,7 +27,7 @@ public class GroupController {
     }
 
     @GetMapping("/get-messages")
-    public List<Message> loadMessageOfGroup(GroupChat groupChat){
-        return groupService.loadMessageOfGroup(groupChat);
+    public List<Message> loadMessageOfGroup(@RequestParam(name = "groupId") Long groupId){
+        return groupService.loadMessageOfGroup(groupId);
     }
 }

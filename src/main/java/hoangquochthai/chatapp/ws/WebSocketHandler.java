@@ -1,6 +1,7 @@
 package hoangquochthai.chatapp.ws;
 
 import hoangquochthai.chatapp.entity.Message;
+import hoangquochthai.chatapp.repository.GroupChatRepository;
 import hoangquochthai.chatapp.repository.MessageRepository;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,18 @@ import java.io.IOException;
 @Component
 public class WebSocketHandler extends AbstractWebSocketHandler {
     @Autowired
-    MessageRepository messageRepository;
+    private MessageRepository messageRepository;
+
+    @Autowired
+    private GroupChatRepository groupChatRepository;
+
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws IOException {
         Message message = new Message();
         message.setContent(textMessage.getPayload());
-        messageRepository.save(message);
-        //có thể lưu vô db
-        //xử lý logic....
+        Message messageSave = messageRepository.save(message);
+
         Gson g = new Gson();
-        Message message1 = new Message();
-        message1.setContent("tao la trum");
-        session.sendMessage(new TextMessage(g.toJson(message1)));
+        session.sendMessage(new TextMessage(g.toJson(messageSave)));
     }
 }

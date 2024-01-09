@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 public class GroupChatRequestDTO {
     private String username;
-    private List<User> users;
+    private List<String> users;
 }

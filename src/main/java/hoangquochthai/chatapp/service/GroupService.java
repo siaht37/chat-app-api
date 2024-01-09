@@ -29,27 +29,34 @@ public class GroupService {
     @Autowired
     MessageRepository messageRepository;
 
-    public List<GroupChat> getAllGroupOfUser(User user){
-        return groupChatRepository.findAllByCreator(user);
+    public List<GroupChat> getAllGroupOfUser(String username){
+        Optional<User> user = userRepository.findById(username);
+        return groupChatRepository.findAllByCreator(user.get());
     }
-    public GroupChat createGroup(GroupChatRequestDTO groupChatRequestDTO){
+    public GroupChat createGroup(GroupChatRequestDTO groupChatRequestDTO) {
         Optional<User> user = userRepository.findById(groupChatRequestDTO.getUsername());
 
         GroupChat groupChat = GroupChat.builder()
                 .creator(user.get())
                 .build();
 
-        for (User userr: groupChatRequestDTO.getUsers()) {
-            groupUserRepository.save(GroupUser.builder()
-                            .user(userr)
-                            .groupChat(groupChat)
-                    .build());
-        }
+        GroupChat groupChatSaved = groupChatRepository.save(groupChat);
 
+        for (String string : groupChatRequestDTO.getUsers()) {
+
+            Optional<User> userOptional = userRepository.findById(string);
+
+            GroupUser groupUser = new GroupUser();
+            groupUser.setUser(userOptional.get());
+            groupUser.setGroupChat(groupChatSaved);
+            groupUserRepository.save(groupUser);
+        }
         return groupChat;
     }
 
-    public List<Message> loadMessageOfGroup(GroupChat groupChat){
-        return messageRepository.findAllByGroupChat(groupChat);
+    public List<Message> loadMessageOfGroup (Long userId) {
+        Optional<GroupChat> loadMessage = groupChatRepository.findById(userId);
+
+        return messageRepository.findAllByGroupChat(loadMessage.get());
     }
 }
