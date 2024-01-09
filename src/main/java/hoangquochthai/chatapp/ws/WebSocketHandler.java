@@ -22,11 +22,11 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws IOException {
-        Message message = new Message();
-        message.setContent(textMessage.getPayload());
+        Gson g = new Gson();
+        Message message = g.fromJson(textMessage.getPayload(), Message.class);
+
         Message messageSave = messageRepository.save(message);
 
-        Gson g = new Gson();
         session.sendMessage(new TextMessage(g.toJson(messageSave)));
     }
 }

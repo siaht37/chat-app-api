@@ -19,7 +19,7 @@ public class GroupController {
     @Autowired
     GroupChatRepository groupChatRepository;
 
-    @GetMapping("/get-group-by-id")
+    @PostMapping("/get-group-by-id")
     public GroupChat getGroup(@RequestParam Long id){
         return groupChatRepository.findById(id).get();
     }
@@ -34,7 +34,7 @@ public class GroupController {
         return groupService.createGroup(groupChatRequestDTO);
     }
 
-    @GetMapping("/get-messages")
+    @PostMapping("/get-messages")
     public List<Message> loadMessageOfGroup(@RequestParam(name = "groupId") Long groupId){
         return groupService.loadMessageOfGroup(groupId);
     }
