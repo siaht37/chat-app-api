@@ -4,6 +4,7 @@ import hoangquochthai.chatapp.dto.requestDTO.GroupChatRequestDTO;
 import hoangquochthai.chatapp.entity.GroupChat;
 import hoangquochthai.chatapp.entity.Message;
 import hoangquochthai.chatapp.entity.User;
+import hoangquochthai.chatapp.repository.GroupChatRepository;
 import hoangquochthai.chatapp.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,13 @@ import java.util.List;
 public class GroupController {
     @Autowired
     GroupService groupService;
+    @Autowired
+    GroupChatRepository groupChatRepository;
+
+    @GetMapping("/get-group-by-id")
+    public GroupChat getGroup(@RequestParam Long id){
+        return groupChatRepository.findById(id).get();
+    }
 
     @PostMapping("/")
     public List<GroupChat> getAllGroupOfUser(@RequestParam(name = "username") String username){
