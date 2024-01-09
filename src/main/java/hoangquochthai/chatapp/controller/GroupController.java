@@ -24,7 +24,7 @@ public class GroupController {
         return groupChatRepository.findById(id).get();
     }
 
-    @PostMapping("/")
+    @GetMapping("/")
     public List<GroupChat> getAllGroupOfUser(@RequestParam(name = "username") String username){
         return groupService.getAllGroupOfUser(username);
     }
