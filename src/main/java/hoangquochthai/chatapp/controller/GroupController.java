@@ -20,11 +20,11 @@ public class GroupController {
     GroupChatRepository groupChatRepository;
 
     @PostMapping("/get-group-by-id")
-    public GroupChat getGroup(@RequestParam Long id){
-        return groupChatRepository.findById(id).get();
+    public GroupChat getGroup(@RequestParam(name = "groupId") Long groupId){
+        return groupChatRepository.findById(groupId).get();
     }
 
-    @GetMapping("/")
+    @PostMapping("/")
     public List<GroupChat> getAllGroupOfUser(@RequestParam(name = "username") String username){
         return groupService.getAllGroupOfUser(username);
     }

@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface GroupUserRepository extends JpaRepository<GroupUser, GroupUserId> {
-    @Query("select g from GroupUser g where g.user.username =: username")
+    @Query("select g.groupChat from GroupUser g where g.user.username = :username")
     List<GroupChat> findAllByUser(@Param("username") String username);
 }
