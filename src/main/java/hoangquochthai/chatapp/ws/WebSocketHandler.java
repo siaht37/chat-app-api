@@ -23,11 +23,9 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
             try {
                 Gson g = new Gson();
 
-                MessageDTO messageResponseDTO = g.fromJson(textMessage.getPayload(), MessageDTO.class);
-                Message messageSave = messageRepository.save(messageResponseDTO.getMessage());
-                MessageDTO messageDTO = new MessageDTO(messageResponseDTO.getUser(), messageSave);
-
-                session.sendMessage(new TextMessage(g.toJson(messageDTO)));
+                Message message = g.fromJson(textMessage.getPayload(), Message.class);
+                Message messageSave = messageRepository.save(message);
+                session.sendMessage(new TextMessage(g.toJson(messageSave)));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
