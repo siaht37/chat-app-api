@@ -1,9 +1,8 @@
 package hoangquochthai.chatapp.controller;
 
 import hoangquochthai.chatapp.dto.requestDTO.GroupChatRequestDTO;
+import hoangquochthai.chatapp.dto.MessageDTO;
 import hoangquochthai.chatapp.entity.GroupChat;
-import hoangquochthai.chatapp.entity.Message;
-import hoangquochthai.chatapp.entity.User;
 import hoangquochthai.chatapp.repository.GroupChatRepository;
 import hoangquochthai.chatapp.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class GroupController {
     }
 
     @PostMapping("/get-messages")
-    public List<Message> loadMessageOfGroup(@RequestParam(name = "groupId") Long groupId){
+    public List<MessageDTO> loadMessageOfGroup(@RequestParam(name = "groupId") Long groupId){
         return groupService.loadMessageOfGroup(groupId);
     }
 }

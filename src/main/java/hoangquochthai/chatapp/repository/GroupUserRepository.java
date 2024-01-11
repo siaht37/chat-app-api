@@ -12,4 +12,7 @@ import java.util.List;
 public interface GroupUserRepository extends JpaRepository<GroupUser, GroupUserId> {
     @Query("select g.groupChat from GroupUser g where g.user.username = :username")
     List<GroupChat> findAllByUser(@Param("username") String username);
+
+    @Query("select g from GroupUser g where g.groupChat.groupId = :groupId")
+    List<GroupUser> findAllByGroupChat(@Param("groupId") Long groupId);
 }

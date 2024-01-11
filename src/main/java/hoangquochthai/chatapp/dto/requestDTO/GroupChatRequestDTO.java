@@ -14,4 +14,5 @@ import java.util.List;
 public class GroupChatRequestDTO {
     private String username;
     private List<String> users;
+    private String roomName;
 }

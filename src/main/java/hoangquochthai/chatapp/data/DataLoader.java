@@ -1,4 +1,4 @@
-//package hoangquochthai.chatapp.data;
+package hoangquochthai.chatapp.data;//package hoangquochthai.chatapp.data;
 //import hoangquochthai.chatapp.dto.requestDTO.UserRequestDTO;
 //import hoangquochthai.chatapp.repository.FriendRepository;
 //import hoangquochthai.chatapp.repository.UserRepository;
@@ -53,3 +53,22 @@
 //    }
 //}
 //
+
+
+//
+//import hoangquochthai.chatapp.repository.MessageRepository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.CommandLineRunner;
+//import org.springframework.stereotype.Component;
+//
+//@Component
+//public class DataLoader implements CommandLineRunner {
+//
+//    @Autowired
+//    private MessageRepository messageRepository;
+//
+//    @Override
+//    public void run(String... args) throws Exception {
+//        messageRepository.deleteAll();
+//    }
+//}
