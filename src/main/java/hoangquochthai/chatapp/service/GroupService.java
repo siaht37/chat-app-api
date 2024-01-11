@@ -1,9 +1,7 @@
 package hoangquochthai.chatapp.service;
 
 import hoangquochthai.chatapp.dto.requestDTO.GroupChatRequestDTO;
-import hoangquochthai.chatapp.dto.MessageDTO;
-import hoangquochthai.chatapp.dto.requestDTO.UserRequestDTO;
-import hoangquochthai.chatapp.dto.responseDTO.UserResponseDTO;
+
 import hoangquochthai.chatapp.entity.GroupChat;
 import hoangquochthai.chatapp.entity.GroupUser;
 import hoangquochthai.chatapp.entity.Message;
@@ -69,17 +67,8 @@ public class GroupService {
         return groupChat;
     }
 
-    public List<MessageDTO> loadMessageOfGroup(Long groupId) {
-        List<GroupUser> groupUsers = groupUserRepository.findAllByGroupChat(groupId);
+    public List<Message> loadMessageOfGroup(Long groupId) {
         List<Message> messages = messageRepository.findAllByGroupChat(groupId);
-        List<MessageDTO> messageResponseDTOS = new ArrayList<>();
-        for (GroupUser groupUser : groupUsers) {
-            for (Message message : messages)
-                if (groupUser.getUser().getUsername().equals(message.getSender().getUsername())) {
-                    messageResponseDTOS.add(new MessageDTO(new UserResponseDTO(groupUser.getUser().getUsername(), groupUser.getUser().getFullName(), groupUser.getUser().getUserAvatar()),message));
-                }
-        }
-
-        return messageResponseDTOS;
+        return messages;
     }
 }
